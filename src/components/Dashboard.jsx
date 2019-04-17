@@ -37,20 +37,19 @@ export default class Dashboard extends React.Component {
       <Row className='h-100 d-flex align-items-center loading-background'>
         <Col>
           <Fader>
+            <Row className='mb-2'>
+              <Col className='d-flex justify-content-end'>
+                <Button
+                  style={{ color: '#1A5829', backgroundColor: 'white', border: 0, opacity: '0.7' }}
+                  onClick={() => this.logout()}
+                >
+                  Logout
+                </Button>
+              </Col>
+            </Row>
             <Card style={{ backgroundColor: 'rgba(255,255,255,0.7)' }}>
               <CardBody>
                 <Container>
-                  <Row>
-                    <Col className='d-flex justify-content-end'>
-                      <Button
-                        style={{ color: 'white', opacity: '0.8' }}
-                        color='primary'
-                        onClick={() => this.logout()}
-                      >
-                        Logout
-                      </Button>
-                    </Col>
-                  </Row>
                   <Row>
                     <Col className='d-flex justify-content-center'>
                       <img src='media/128.png' alt='banpro.png' />
@@ -58,7 +57,7 @@ export default class Dashboard extends React.Component {
                   </Row>
                   <Row>
                     <Col>
-                      <Query query={BALANCE} variables={{ username, password }}>
+                      <Query query={BALANCE} variables={{ username, password }} pollInterval={60000}>
                         {({ loading, data, error }) => {
                           if (loading) {
                             return (
@@ -75,6 +74,7 @@ export default class Dashboard extends React.Component {
                           }
                           if (data) {
                             let { owner, amount, description, accountNumber } = data.requestBalance
+                            localStorage.setItem('balance', amount)
                             return (
                               <Fader>
                                 <Row className='my-4'>

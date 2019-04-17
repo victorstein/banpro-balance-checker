@@ -1,4 +1,9 @@
 {
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
   "short_name": "Banpro",
   "name": "Banpro Balance Checker",
   "manifest_version": 2,
